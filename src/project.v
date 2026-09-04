@@ -56,24 +56,24 @@ module tt_um_garnetkoebel_communotron (
 
 
   // All output pins must be assigned. If not used, assign to 0.
-/* -----\/----- EXCLUDED -----\/-----
    assign ui_in[7:3] = 0;
    assign uo_out[7] = 0;
    assign uio_in = 0;
    assign uio_out = 0;
    assign uio_oe = 0;
 
- -----/\----- EXCLUDED -----/\----- */
    wire _unused =&(ena);
 
   
 
   // communotron_fsm primary_fsm(clk, rst_n,);
 
+/* -----\/----- EXCLUDED -----\/-----
    parameter address1 = 8'h41;
    parameter address2 = 8'h42;
    parameter address3 = 8'h43;
    parameter address4 = 8'h44;
+ -----/\----- EXCLUDED -----/\----- */
 
 
    i2c_start_detector det_start(.clk(clk), .rst(rst_n), .sda(sda_in), .scl(scl), .start(sda_out));
