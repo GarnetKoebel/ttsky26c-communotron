@@ -56,7 +56,6 @@ module tt_um_garnetkoebel_communotron (
 
 
   // All output pins must be assigned. If not used, assign to 0.
-   assign ui_in[7:3] = 0;
    assign uo_out[7] = 0;
    assign uio_in = 0;
    assign uio_out = 0;
