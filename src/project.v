@@ -34,6 +34,7 @@ module tt_um_garnetkoebel_communotron (
    wire sda_out;
    assign uo_out[0] = sda_out;
 
+   /* verilator lint_off UNUSEDSIGNAL */
    // spi chip select 1
    wire spi_cs_1;
    assign spi_cs_1 = uo_out[1];
@@ -53,10 +54,10 @@ module tt_um_garnetkoebel_communotron (
    // spi peripheral out controller in (translated i2c data comes out here)
    wire spi_poci;
    assign spi_poci = uo_out[5];
-
+   /* verilator lint_on UNUSEDSIGNAL */
 
   // All output pins must be assigned. If not used, assign to 0.
-   assign uo_out[7] = 0;
+   assign uo_out[7:1] = 0;
    assign uio_out = 0;
    assign uio_oe = 0;
 
