@@ -32,7 +32,7 @@ module tt_um_garnetkoebel_communotron (
    // OUTPUTS
    // outgoing i2c data line (for acking without messing with bi-directional pins)
    wire sda_out;
-   assign sda_out = uo_out[0];
+   assign uo_out[0] = sda_out;
 
    // spi chip select 1
    wire spi_cs_1;
