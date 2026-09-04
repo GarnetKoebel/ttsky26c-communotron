@@ -64,10 +64,12 @@ module tt_um_garnetkoebel_communotron (
 
   // communotron_fsm primary_fsm(clk, rst_n,);
 
-   parameter address1 = 8'h42;
+   parameter address1 = 8'h41;
+   parameter address2 = 8'h42;
+   parameter address3 = 8'h43;
+   parameter address4 = 8'h44;
 
 
-   address_1_detector i2C_address_detector(.clk(clk), .rst(rst_n), .sda(sda), .scl(scl), .inhibit(0), .address(address1) , .address_match(match1));
 
 
 
@@ -262,3 +264,82 @@ output address_match
 
 
 endmodule // i2c_address_detector
+
+// contains the i2c_address_detectors and cross-connected inhibit circuitry
+module data_routing_unit (
+                          input  clk, rst, sda_in, scl, spi_pico, [6:0] address_1, [6:0] address_2, [6:0] address_3, [6:0] address_4,
+                          output sda_out, spi_cs_1, spi_cs_2, spi_cs_3, spi_cs_4, spi_poci, spi_clk
+
+                          );
+
+   // This module contains the bulk of the communotron data handling.
+
+    // i2c data bit counter
+   wire i2c_data_bit_counter_rollover;
+   mod_n_counter #(N = 9, WIDTH = 5) i2c_data_bit_counter(.clk(scl), .rst_n(rst), .out(i2c_data_bit_counter_rollover));
+
+   // i2c address match one-shot logic
+
+
+   // one-shot ack logic for driving sda_out
+   wire i2c_ack;
+   assign i2c_ack = (i2c_data_bit_counter_rollover | i2c_address_match_oneshot);
+
+
+   // Address Detector Inhibit Logic. These signals are used to disable all but one address detector once
+   // a match has occured
+   wire inhibit_1, inhibit_2, inhibit_3, inhibit_4;
+   assign inhibit_1 = (spi_cs_2 | spi_cs_3 | spi_cs_4);
+   assign inhibit_2 = (spi_cs_1 | spi_cs_3 | spi_cs_4);
+   assign inhibit_3 = (spi_cs_1 | spi_cs_2 | spi_cs_4);
+   assign inhibit_4 = (spi_cs_1 | spi_cs_2 | spi_cs_3);
+
+   // Address detectors. Pre-programmed to detect a specific address defined in the top level module
+   // The detectors generate our spi chipselect signal
+   i2c_address_detector address_1_detector(.clk(clk), .rst(rst), .sda(sda_in), .scl(scl), .inhibit(inhibit_1), .address(address_1) , .address_match(spi_cs_1));
+   i2C_address_detector address_2_detector(.clk(clk), .rst(rst), .sda(sda_in), .scl(scl), .inhibit(inhibit_2), .address(address_2) , .address_match(spi_cs_2));
+   i2C_address_detector address_3_detector(.clk(clk), .rst(rst), .sda(sda_in), .scl(scl), .inhibit(inhibit_3), .address(address_3) , .address_match(spi_cs_3));
+   i2C_address_detector address_4_detector(.clk(clk), .rst(rst), .sda(sda_in), .scl(scl), .inhibit(inhibit_4), .address(address_4) , .address_match(spi_cs_4));
+
+   // i2c data bit counter, used to trigger ACKs and to stall spi clk in order to strip ACK bits.
+
+
+   // data output logic
+   wire spi_clk_en, spi_pico_en;
+   //assign spi_pico_en;
+
+
+endmodule // data_routing_unit
+
+module mod_n_counter
+  # (parameter N = 10,
+     parameter WIDTH = 4)
+
+  ( input   clk,
+    input   rst_n,
+   	output  reg[WIDTH-1:0] out);
+
+  always @ (posedge clk) begin
+    if (!rst_n) begin
+      out <= 0;
+    end else begin
+      if (out == N-1)
+        out <= 0;
+      else
+        out <= out + 1;
+    end
+  end
+endmodule // mod_n_counter
+
+// one-shot
+module one_shot (
+                 input  clk, in,
+                 output out
+                 );
+
+   always @ (posedge clk) begin
+      if (in) begin
+         out = 1;
+
+
+endmodule // one_shot
