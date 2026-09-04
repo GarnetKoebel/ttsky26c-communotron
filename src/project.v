@@ -56,11 +56,17 @@ module tt_um_garnetkoebel_communotron (
 
 
   // All output pins must be assigned. If not used, assign to 0.
+/* -----\/----- EXCLUDED -----\/-----
+   assign ui_in[7:3] = 0;
+   assign uo_out[7] = 0;
+   assign uio_in = 0;
+   assign uio_out = 0;
+   assign uio_oe = 0;
+
+ -----/\----- EXCLUDED -----/\----- */
+   wire _unused =&(ena);
 
   
-
-  // List all unused inputs to prevent warnings
-  wire _unused = &{ena, clk, rst_n, 1'b0};
 
   // communotron_fsm primary_fsm(clk, rst_n,);
 
@@ -70,6 +76,8 @@ module tt_um_garnetkoebel_communotron (
    parameter address4 = 8'h44;
 
 
+   i2c_start_detector det_start(.clk(clk), .rst(rst_n), .sda(sda_in), .scl(scl), .start(sda_out));
+
 
 
 
@@ -77,6 +85,7 @@ module tt_um_garnetkoebel_communotron (
 endmodule
 
 
+/* -----\/----- EXCLUDED -----\/-----
 module communotron_fsm (
                         input
                         clk,
@@ -88,6 +97,7 @@ module communotron_fsm (
 
                         );
 endmodule // communotrom_fsm
+ -----/\----- EXCLUDED -----/\----- */
 
 // Detects the I2C Start Sequence
 module i2c_start_detector (
@@ -138,6 +148,7 @@ module i2c_start_detector (
 
 endmodule // i2c_start_detector
 
+/* -----\/----- EXCLUDED -----\/-----
 // Detects the I2C Stop Sequence
 module i2c_stop_detector (
                           input
@@ -188,8 +199,8 @@ endmodule // i2c_stop_detector
 
 // Detects a pre-programmed address
 module i2c_address_detector (
-input clk, rst, sda, scl, inhibit, [6:0] address,
-output address_match
+                             input  clk, rst, sda, scl, inhibit, [6:0] address,
+                             output address_match
                              );
 
    // address bit matching states
@@ -343,3 +354,4 @@ module one_shot (
 
 
 endmodule // one_shot
+ -----/\----- EXCLUDED -----/\----- */
