@@ -11,10 +11,9 @@ module communotron (
    parameter match_address_4 = 7'h44;
 
    wire      match_unit_inhibit;
-   /* verilator lint_off UNUSEDSIGNAL */
    wire      match_oneshot, start_oneshot, stop_oneshot, frame_end_oneshot;
    wire      state_start, state_stop, state_address, state_data;
-   /* verilator lint_on UNUSEDSIGNAL */
+
   
 
 

@@ -3,7 +3,7 @@ module mod_n_counter
   # (parameter N = 9,
      parameter WIDTH = 4)
 
-  ( input                 clk,
+  ( input                 clk, en,
     input                 rstn,
     output out);
 
@@ -15,7 +15,7 @@ module mod_n_counter
   always @ (posedge clk) begin
     if (!rstn) begin
       count <= 0;
-    end else begin
+    end else if (en) begin
       if (count == N-1)
         count <= 0;
       else

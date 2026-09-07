@@ -2,6 +2,7 @@
 module i2c_start_detector (
   input
                            clk, // communotron clock signal
+                           en,
                            rst, // communotron reset signal
                            sda, // i2c data signal
                            scl,  // i2c clock signal
@@ -21,7 +22,7 @@ module i2c_start_detector (
    always @ (posedge clk) begin
       if (!rst) begin
          state <= RESET; // reset if signal pulled low
-      end else
+      end else if (en)
         state <= next_state; // update state
    end
 
