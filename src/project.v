@@ -54,6 +54,10 @@ module tt_um_garnetkoebel_communotron (
    wire spi_pico;
    assign uo_out[5] = spi_pico;
 
+   wire spi_clk;
+   assign uo_out[6] = spi_clk;
+
+
   // All output pins must be assigned. If not used, assign to 0.
    assign uo_out[7:1] = 0;
    assign uio_out = 0;
