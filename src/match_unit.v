@@ -1,7 +1,8 @@
 // address matching, spi chip select signal, and match 1 shot
 module match_unit (
-                   input clk, rst, sda, scl, inhibit, [6:0] address_1, [6:0] address_2, [6:0] address_3, [6:0] address_4,
-                   output match_1, match_2, match_3, match_4, match_shot
+                   input       clk, rst, sda, scl, inhibit,
+                   input [6:0] address_1, address_2, address_3, address_4,
+                   output      match_1, match_2, match_3, match_4, match_shot
                    );
 
    // Address Detector Inhibit Logic. These signals are used to disable all but one address detector once
