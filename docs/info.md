@@ -13,7 +13,11 @@ The communotron is a prototype I2C to SPI translator. It only operates in one di
 
 ## How to test
 
-WIP
+1. Connect SPI PICO, SPI CLK, and SPI Chip Select 1 to a Oscilloscope
+2. Connect SDA IN and SDA OUT to a I2C SDA line
+3. Connect SCL to a I2C SCL line
+4. Transmit a I2C write message to address 0x41
+5. The data portion of the message should show in the Oscilloscope capture
 
 ## External hardware
 
