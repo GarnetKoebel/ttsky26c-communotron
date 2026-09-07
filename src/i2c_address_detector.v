@@ -1,6 +1,7 @@
 // Detects a pre-programmed address
 module i2c_address_detector (
-input clk, rst, sda, scl, inhibit, [6:0] address,
+input clk, rst, sda, scl, inhibit,
+input [6:0] address,
 output address_match
                              );
 
