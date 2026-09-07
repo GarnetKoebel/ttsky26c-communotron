@@ -1,3 +1,5 @@
+`timescale 1ns / 100ps
+
 // Detects the I2C Stop Sequence
 module i2c_stop_detector (
                           input
@@ -10,12 +12,13 @@ module i2c_stop_detector (
                            );
 
    parameter RESET           = 0, // reset state
-             SDA_HIGH_FIRST  = 1, // sda going high is the first step of a i2c stop
-             SCL_HIGH_SECOND = 2; // scl going high after sda is the confirmation that this is a i2c stop
+             SCL_HIGH_FIRST  = 1, // sda going high is the first step of a i2c stop
+             SDA_HIGH_SECOND = 2; // scl going high after sda is the confirmation that this is a i2c stop
 
    reg [2:0] state, next_state;
 
-   assign stop = (state == SCL_HIGH_SECOND) ? 1 : 0; // set match high if state indicates a i2c start just occured
+   assign stop = (state == SDA_HIGH_SECOND) ? 1 : 0; // set match high if state indicates a i2c start just occured
+
 
    // Sequential Logic
    always @ (posedge clk) begin
@@ -26,22 +29,27 @@ module i2c_stop_detector (
    end
 
    // Combinational Logic
-   always @ (state or sda or scl) begin // update each time state, sda, or scl changes
-      case (state)
-        RESET : begin
-           if (sda) next_state = SDA_HIGH_FIRST;
-           else next_state = RESET;
-        end
+   always @ (*) begin // update each time state, sda, or scl changes
+      if (!rst) begin
+         next_state = RESET;
+      end
 
-        SDA_HIGH_FIRST : begin
-           if (scl) next_state = SCL_HIGH_SECOND;
-           else next_state = RESET;
-        end
+         case (state)
+           RESET : begin
+              if (scl && !sda) next_state = SCL_HIGH_FIRST;
+              else next_state = RESET;
+           end
 
-        SCL_HIGH_SECOND : begin
-           next_state = RESET;
-        end
-      endcase // case (state)
+           SCL_HIGH_FIRST : begin
+              if (sda && scl) next_state = SDA_HIGH_SECOND;
+              else next_state = RESET;
+           end
+
+           SDA_HIGH_SECOND : begin
+              next_state = RESET;
+           end
+         endcase // case (state)
+
    end
 
 endmodule // i2c_stop_detector

@@ -1,3 +1,5 @@
+`timescale 1ns / 100ps
+
 // Detects the I2C Start Sequence
 module i2c_start_detector (
   input
@@ -26,15 +28,19 @@ module i2c_start_detector (
    end
 
    // Combinational Logic
-   always @ (state or sda or scl) begin // update each time state, sda, or scl changes
+   always @ (*) begin // update each time state, sda, or scl changes
+      if (!rst) begin
+         next_state = RESET;
+      end
+
       case (state)
         RESET : begin
-           if (!sda) next_state = SDA_LOW_FIRST;
+           if (!sda && scl) next_state = SDA_LOW_FIRST;
            else next_state = RESET;
         end
 
         SDA_LOW_FIRST : begin
-           if (!scl) next_state = SCL_LOW_SECOND;
+           if (!scl && !sda) next_state = SCL_LOW_SECOND;
            else next_state = RESET;
         end
 

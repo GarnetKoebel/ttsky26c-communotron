@@ -18,6 +18,13 @@ project:
   # Don't forget to also update `PROJECT_SOURCES` in test/Makefile.
   source_files:
     - "project.v"
+    - "communotron.v"
+    - "match_unit.v"
+    - "i2c_frame_handler.v"
+    - "i2c_address_detector.v"
+    - "i2c_start_detector.v"
+    - "i2c_stop_detector.v"
+    - "mod_n_counter.v"
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 # This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
@@ -25,7 +32,7 @@ pinout:
   # Inputs
   ui[0]: "I2C SDA Input (sda_in)"
   ui[1]: "I2C SCL (scl)"
-  ui[2]: "SPI Peripheral In Controller Out (spi_pico)"
+  ui[2]: "SPI Peripheral Out Controller In (spi_poci)"
   ui[3]: ""
   ui[4]: ""
   ui[5]: ""
@@ -38,7 +45,7 @@ pinout:
   uo[2]: "SPI Chip Select 2 (spi_cs_2)"
   uo[3]: "SPI Chip Select 3 (spi_cs_3)"
   uo[4]: "SPI Chip Select 4 (spi_cs_4)"
-  uo[5]: "SPI Peripheral Out Controller In (spi_poci)"
+  uo[5]: "SPI Peripheral In Controller Out (spi_pico)"
   uo[6]: "SPI Clock (spi_clk)"
   uo[7]: ""
 
