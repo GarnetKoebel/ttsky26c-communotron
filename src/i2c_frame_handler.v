@@ -33,9 +33,6 @@ module i2c_frame_handler (
       end
    end
 
-   /* verilator  lint_off UNUSEDSIGNAL */
-   wire scl_rising = scl & ~scl_d;
-   /* verilator lint_on UNUSEDSIGNAL */
    assign start_oneshot = start & ~start_d;
    assign stop_oneshot = stop & ~stop_d;
    assign frame_end_oneshot = frame_end & ~frame_end_d;
@@ -49,7 +46,7 @@ module i2c_frame_handler (
 
    i2c_start_detector start_det(.clk(clk), .en(state == RESET), .rst(rst), .sda(sda_in), .scl(scl), .start(start));
    i2c_stop_detector stop_det(.clk(clk), .en(state == DATA), .rst(rst), .sda(sda_in), .scl(scl), .stop(stop));
-   mod_n_counter frame_det(.clk((scl), .en((state == ADDRESS) || (state == DATA)), .rstn(rst), .out(frame_end));
+   mod_n_counter frame_det(.clk(scl), .en((state == ADDRESS) || (state == DATA)), .rstn(rst), .out(frame_end));
 
    // i2c message state FSM
    parameter RESET = 0, // reset state
