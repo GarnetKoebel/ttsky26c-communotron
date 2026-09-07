@@ -41,6 +41,8 @@ wire scl_rising = scl & ~scl_d;
 
    // Combinational FSM Logic
    always @ (*) begin
+      next_state = state;
+
       if (!rst)  begin
          next_state = RESET;
       end
