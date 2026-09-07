@@ -1,5 +1,3 @@
-`timescale 1ns / 100ps
-
 // Detects the I2C Start Sequence
 module i2c_start_detector (
   input

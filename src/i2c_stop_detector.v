@@ -1,5 +1,3 @@
-`timescale 1ns / 100ps
-
 // Detects the I2C Stop Sequence
 module i2c_stop_detector (
                           input

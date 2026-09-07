@@ -1,5 +1,3 @@
-`timescale 1ns / 100ps
-
 // generic mod N counter yoinked from ChipVerify with some modifications
 module mod_n_counter
   # (parameter N = 9,

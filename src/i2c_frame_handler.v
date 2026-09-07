@@ -1,5 +1,3 @@
-`timescale 1ns / 100ps
-
 // I2C Frame Handler
 // This module tracks the current state of a i2c message and generates signals accordingly. One-shot pulses are generated
 // for i2c_start, i2c_stop, and every 9 bits of frame data. As well latched outputs are output to allow external circuitry to

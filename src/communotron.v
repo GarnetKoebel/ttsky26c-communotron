@@ -1,5 +1,3 @@
-`timescale 1ns / 100ps
-
 // Communotron Main Module, it is assumed that signals above this level get passed to external pins
 module communotron (
                    input clk, rst, sda_in, scl,

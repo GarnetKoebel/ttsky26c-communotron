@@ -1,5 +1,3 @@
-`timescale 1ns / 100ps
-
 // address matching, spi chip select signal, and match 1 shot
 module match_unit (
                    input clk, rst, sda, scl, inhibit, [6:0] address_1, [6:0] address_2, [6:0] address_3, [6:0] address_4,

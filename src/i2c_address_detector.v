@@ -1,6 +1,3 @@
-`timescale 1ns / 100ps
-
-
 // Detects a pre-programmed address
 module i2c_address_detector (
 input clk, rst, sda, scl, inhibit, [6:0] address,
