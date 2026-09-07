@@ -19,15 +19,15 @@ module tt_um_garnetkoebel_communotron (
    // INPUTS
    // incoming i2c data line
    wire sda_in;
-   assign ui_in[0] = sda_in;
+   assign sda_in = ui_in[0];
 
    // i2c clock line
    wire scl;
-   assign ui_in[1] = scl;
+   assign scl = ui_in[1];
 
    // spi peripheral in controller out (only used if I get bi-directional comms working)
    wire spi_poci;
-   assign ui_in[2] = spi_poci;
+   assign spi_poci = ui_in[2];
 
    // OUTPUTS
    // outgoing i2c data line (for acking without messing with bi-directional pins)
