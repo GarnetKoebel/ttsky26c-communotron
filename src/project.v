@@ -61,7 +61,7 @@ module tt_um_garnetkoebel_communotron (
 
    wire _unused =&(ena);
 
-   communotron com1(.clk(clk), .rst(rstn), .sda_in(sda), .scl(scl), .sda_out(sda_out),
+   communotron com1(.clk(clk), .rst(rst_n), .sda_in(sda_in), .scl(scl), .sda_out(sda_out),
                      .match_1(spi_cs_1), .match_2(spi_cs_2), .match_3(spi_cs_3), .match_4(spi_cs_4),
                      .spi_pico(spi_pico), .spi_clk(spi_clk));
 
