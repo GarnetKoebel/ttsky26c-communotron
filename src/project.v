@@ -59,11 +59,11 @@ module tt_um_garnetkoebel_communotron (
 
 
   // All output pins must be assigned. If not used, assign to 0.
-   assign uo_out[7:1] = 0;
+   assign uo_out[7] = 0;
    assign uio_out = 0;
    assign uio_oe = 0;
 
-   wire _unused =&(ena);
+   wire _unused =&(ena, ui_in[7:3]);
 
    communotron com1(.clk(clk), .rst(rst_n), .sda_in(sda_in), .scl(scl), .sda_out(sda_out),
                      .match_1(spi_cs_1), .match_2(spi_cs_2), .match_3(spi_cs_3), .match_4(spi_cs_4),
