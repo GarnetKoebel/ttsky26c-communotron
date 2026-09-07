@@ -71,6 +71,8 @@ module i2c_frame_handler (
 
    // Combinational FSM Logic
    always @ (*) begin
+      next_state = state; // doing this here avoids YoSys detecting a logical loop
+
       if (!rst) begin
          next_state = RESET;
       end
